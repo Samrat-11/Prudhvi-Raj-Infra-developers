@@ -1234,9 +1234,11 @@ html {
 }
 
 .cta-form {
-  display: flex;
-  gap: 16px;
-  max-width: 560px;
+  display: flex;            /* keep using flex */
+  flex-direction: column;   /* stack items vertically */
+  align-items: stretch;     /* make children stretch full width */
+  gap: 16px;                /* keep your existing gap */
+  max-width: 560px;         /* keep your max-width (unchanged) */
   margin: 0 auto;
 }
 
