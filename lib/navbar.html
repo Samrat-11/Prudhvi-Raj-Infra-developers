@@ -1,263 +1,138 @@
 <style>
-  body {
-    margin: 0;
-    font-family: "Carter One", system-ui;
-    background-color: #fdddc7;
-    /* padding-top: 80px; */
-  }
-
   .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 10px;
-    padding-right: 15px;
-    background-color: #fdddc7;
+    display: flex; justify-content: space-between;
+    align-items: center; padding: 10px 15px;
+    background: rgba(255,255,255,0.85);
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     z-index: 9999;
   }
 
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 1px;
-  }
-
-  .logo span {
-    font-size: 1.5rem;
-    color: red;
-  }
-
-  .logo-img {
-    width: 65px;
-    height: 65px;
-    object-fit: contain;
-    
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 40px;
-  }
-
-  .nav-links a {
-    text-decoration: none;
-    color: black;
-    font-weight: 600;
-    position: relative;
-  }
+  .nav-logo { display: flex; align-items: center; font-size: 1.5rem; font-weight: bold; gap: 1px; }
+  .nav-logo-img { width: 65px; height: 65px; object-fit: contain; }
+  .nav-logo span { font-size: 1.5rem; color: black; }
+  .nav-links { display: flex; gap: 40px; }
+  .nav-links a { text-decoration: none; color: black; font-weight: 600; position: relative; }
 
   .nav-links a.active::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 4px;
-    background-color: #c51919;
-    bottom: -6px;
-    left: 0;
+    content: ""; position: absolute;
+    width: 100%; height: 4px;
+    background: blue;
+    bottom: -6px; left: 0;
     border-radius: 10px;
   }
 
-  .open-toggle,
-  .close-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
+  .nav-open-toggle, .nav-close-toggle {
+    display: none; flex-direction: column; gap: 5px; cursor: pointer;
   }
 
-  .open-toggle .dot,
-  .close-toggle .dot {
-    width: 10px;
-    height: 10px;
-    background: black;
-    border-radius: 50%;
+  .nav-dot {
+    width: 28px; height: 3px; background: black; border-radius: 2px; transition: .3s;
   }
 
-  .close-toggle .dot:nth-child(1) {
-    transform: rotate(45deg) translate(2px, 2px);
-  }
-  .close-toggle .dot:nth-child(2) {
-    opacity: 0;
-  }
-  .close-toggle .dot:nth-child(3) {
-    transform: rotate(-45deg) translate(2px, -2px);
-  }
+  .nav-close-toggle .nav-dot:nth-child(1) { transform: rotate(45deg) translate(7px,7px); }
+  .nav-close-toggle .nav-dot:nth-child(2) { opacity: 0; }
+  .nav-close-toggle .nav-dot:nth-child(3) { transform: rotate(-45deg) translate(7px,-7px); }
 
   @media (max-width: 768px) {
     .nav-links {
-      position: fixed;
-      top: 60px;
-      right: 30px;
-      background: #fdddc7;
-      padding: 20px 30px;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 20px;
-      transform: translateX(200%);
-      transition: transform 0.4s ease;
-      z-index: 1000;
+      position: fixed; top: 60px; right: 30px;
+      background: white; padding: 20px 30px; border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      flex-direction: column; align-items: flex-start; gap: 20px;
+      transform: translateX(200%); transition: .4s;
     }
-
-    .nav-links.show {
-      transform: translateX(0);
-    }
-
-    .open-toggle,
-    .close-toggle {
-      display: flex;
-    }
+    .nav-links.show { transform: translateX(0); }
+    .nav-open-toggle, .nav-close-toggle { display: flex; }
   }
 </style>
 
-
 <header class="navbar">
-  <div class="logo">
-    <img src="../img/logo.jpg" alt="Logo Img" class="logo-img" />
+  <div class="nav-logo">
+    <img src="../img/logo.jpg" class="nav-logo-img">
     <span>Prudhvi Raj Infra Developers</span>
   </div>
 
   <nav id="nav-links" class="nav-links">
     <a href="../index.html#home" class="active">Home</a>
-    <!-- <a href="./no-need.html">No-Need</a> -->
     <a href="../index.html#about">About Us</a>
     <a href="../index.html#residences">Residences</a>
     <a href="../index.html#value">Value</a>
-    <a href="../index.html#contact">ContactUs</a>
-    <!-- <a href="../lib/contact.html">contact</a> -->
+    <!-- <a href="../index.html#contact">ContactUs</a> -->
+    <a href="../lib/contact.html">Contact</a>
   </nav>
 
-  <div class="open-toggle" id="open-btn">
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
+  <div id="nav-open-btn" class="nav-open-toggle">
+    <span class="nav-dot"></span><span class="nav-dot"></span><span class="nav-dot"></span>
   </div>
 
-  <div class="close-toggle" id="close-btn">
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
+  <div id="nav-close-btn" class="nav-close-toggle">
+    <span class="nav-dot"></span><span class="nav-dot"></span><span class="nav-dot"></span>
   </div>
 </header>
 
-<!-- Navigation -->
-<!-- <nav class="navbar">
-  <div class="container">
-    <div class="nav-wrapper">
-      <div class="logo">
-        <div class="logo-icon">
-          <img src="img/logo.jpg" alt="Logo" class="logo-image" style="height: 50px; width: 50px;">
-        </div>
-        <h1 class="" style="font-size: medium; padding: 0px;">Prudhvi Raj Infra Developers</h1>
-      </div>
-      <h1 class="" style="font-size: medium; padding: 0px;">Prudhvi Raj Infra Developers</h1>
-      <ul class="nav-menu">
-        <li><a href="#home" class="nav-link active">Home</a></li>
-        <li><a href="#about" class="nav-link">About Us</a></li>
-        <li><a href="#residences" class="nav-link">Residences</a></li>
-        <li><a href="#value" class="nav-link">Value</a></li>
-        <li><a href="#testimonials" class="nav-link">Reviews</a></li>
-        <li><a href="#contact" class="nav-link">Contact Us</a></li>
-        <li> <button class="btn-primary subscribe-btn nav-link">Get Started</button></li>
-      </ul>
-      
-      <button class="mobile-menu-btn" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </div>
-</nav> -->
-
 <script>
-  const toggleBtn = document.getElementById('open-btn');
-  const navLinks = document.getElementById('nav-links');
-  const closeBtn = document.getElementById('close-btn');
+  const nav = document.getElementById("nav-links");
+  const openBtn = document.getElementById("nav-open-btn");
+  const closeBtn = document.getElementById("nav-close-btn");
 
-  function openMenu() {
-    navLinks.classList.add('show');
-    closeBtn.style.display = 'flex';
-    toggleBtn.style.display = 'none';
+  const showMenu = () => {
+    nav.classList.add("show");
+    openBtn.style.display = "none";
+    closeBtn.style.display = "flex";
+  };
+
+  const hideMenu = () => {
+    nav.classList.remove("show");
+    closeBtn.style.display = "none";
+    openBtn.style.display = "flex";
+  };
+
+  openBtn.onclick = showMenu;
+  closeBtn.onclick = hideMenu;
+
+  function adjustMenu() {
+    const mobile = window.innerWidth <= 768;
+    openBtn.style.display = mobile ? "flex" : "none";
+    closeBtn.style.display = "none";
+    if (!mobile) nav.classList.remove("show");
   }
 
-  function closeMenu() {
-    navLinks.classList.remove('show');
-    closeBtn.style.display = 'none';
-    toggleBtn.style.display = 'flex';
+  window.addEventListener("resize", adjustMenu);
+  adjustMenu();
+
+  // ---- ACTIVE LINK ON PAGE LOAD ----
+  function highlightActiveLink() {
+    const path = location.pathname.replace(/\/$/, "");
+    const hash = location.hash;
+
+    document.querySelectorAll(".nav-links a").forEach(a => {
+      const url = new URL(a.href);
+      const match =
+        (url.pathname.replace(/\/$/, "") === path && !url.hash) ||
+        (url.pathname.replace(/\/$/, "") === path && url.hash === hash) ||
+        (path.endsWith("index.html") && hash && url.hash === hash);
+
+      a.classList.toggle("active", match);
+    });
   }
 
-  toggleBtn.addEventListener('click', openMenu);
-  closeBtn.addEventListener('click', closeMenu);
+  // ---- ACTIVE LINK ON SCROLL ----
+  function highlightOnScroll() {
+    const y = window.scrollY;
+    document.querySelectorAll("section[id]").forEach(sec => {
+      const top = sec.offsetTop - 120;
+      const bottom = top + sec.offsetHeight;
 
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-      navLinks.classList.remove('show');
-      toggleBtn.style.display = 'none';
-      closeBtn.style.display = 'none';
-    } else {
-      toggleBtn.style.display = 'flex';
-      closeBtn.style.display = 'none';
-    }
-  });
-
-  if (window.innerWidth <= 768) {
-    toggleBtn.style.display = 'flex';
-    closeBtn.style.display = 'none';
-  } else {
-    toggleBtn.style.display = 'none';
-    closeBtn.style.display = 'none';
+      if (y >= top && y < bottom) {
+        document.querySelectorAll(".nav-links a").forEach(a => {
+          a.classList.toggle("active", a.getAttribute("href").includes(`#${sec.id}`));
+        });
+      }
+    });
   }
 
- function highlightOnScroll() {
-  const scrollY = window.scrollY;
-  document.querySelectorAll('section[id]').forEach(section => {
-    const top = section.offsetTop - 120;
-    const bottom = top + section.offsetHeight;
-    const id = section.id;
-
-    if (scrollY >= top && scrollY < bottom) {
-      document.querySelectorAll('.nav-links a').forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href').includes(`#${id}`));
-      });
-    }
-  });
-}
-
-function highlightActiveLink() {
-  const path = window.location.pathname.replace(/\/$/, '');
-  const hash = window.location.hash;
-
-  document.querySelectorAll('#navbar-container a').forEach(link => {
-    const href = link.getAttribute('href');
-    if (!href) return;
-
-    const a = document.createElement('a');
-    a.href = href;
-    const linkPath = a.pathname.replace(/\/$/, '');
-    const linkHash = a.hash;
-
-    const match =
-      (path === linkPath && !linkHash) ||
-      (path === linkPath && hash === linkHash) ||
-      (path.endsWith('index.html') && hash && linkHash === hash);
-
-    link.classList.toggle('active', match);
-  });
-}
-
-// Initial highlighting
-highlightActiveLink();
-highlightOnScroll();
-
-// Update on scroll (for index.html)
-window.addEventListener('scroll', highlightOnScroll);
-
+  highlightActiveLink();
+  highlightOnScroll();
+  window.addEventListener("scroll", highlightOnScroll);
 </script>
