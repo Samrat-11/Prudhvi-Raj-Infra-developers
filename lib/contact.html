@@ -8,6 +8,80 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /*========== Submit button start ==========*/
+.button {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
+  background-color: rgb(0, 0, 0);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffff;
+  gap: 10px;
+  font-weight: bold;
+  border: 2px solid #ffffff4d;
+  outline: none;
+  overflow: hidden;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+  transform: scale(1.05);
+  border-color: #fff9;
+}
+
+.button:hover .icon {
+  transform: translate(4px);
+}
+
+.button:hover::before {
+  animation: shine 1.5s ease-out infinite;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0) 70%
+  );
+  top: 0;
+  left: -100px;
+  opacity: 0.6;
+}
+
+@keyframes shine {
+  0% {
+    left: -100px;
+  }
+
+  60% {
+    left: 100%;
+  }
+
+  to {
+    left: 100%;
+  }
+}
+
+/*========== Submit button end ==========*/
+    </style>
 </head>
 <body>
     <!--==================== Navbar ====================-->
@@ -56,10 +130,7 @@
         <!-- Google Map -->
         <div class="col-lg-6 order-lg-2">
             <div class="map-container w-100" style="min-height: 300px; height: 100%; margin-top: min(10px, 5vh); border-radius: 10px;">
-                
-                <iframe class="w-100 h-100" style="border-radius: 10px;" 
-                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.595685536899!2d-74.0098193250176!3d40.704901371394676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a161aaa68c5%3A0xe736a17e71a59df!2s99%20Wall%20St%20%232217%2C%20New%20York%2C%20NY%2010005%2C%20USA!5e0!3m2!1sen!2sin!4v1743529764084!5m2!1sen!2sin" 
-                 width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                 <iframe class="w-100 h-100" style="border-radius: 10px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2983.8040110420566!2d78.54222737377931!3d14.77761218572999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb479004237f7e3%3A0x88ff7c324db789df!2sPRUDHVI%20RAJ%20INFRA%20DEVELOPERS!5e1!3m2!1sen!2sin!4v1764822402350!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </div>
@@ -89,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let whatsappMessage = `Hello, I have a query:\n\n Name: ${fullName}\n Email: ${email}\n Subject: ${subject}\n Message: ${message}`;
 
       // Your WhatsApp number (with country code, without + sign)
-      let whatsappNumber = "13479698733"; // Change this to your WhatsApp number
+      let whatsappNumber = "+918790419914"; // Change this to your WhatsApp number
 
       // Create the WhatsApp URL
       let whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
