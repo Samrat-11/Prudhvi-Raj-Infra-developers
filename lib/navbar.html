@@ -1,49 +1,38 @@
 <style>
+  body { padding-top: 85px; }
+
   .navbar {
-    display: flex; justify-content: space-between;
-    align-items: center; padding: 10px 15px;
-    background: rgba(255,255,255,0.85);
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 9999;
+    display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; 
+    background: rgba(255,255,255,0.85); position: fixed; inset: 0 0 auto 0; z-index: 9999;
   }
 
-  .nav-logo { display: flex; align-items: center; font-size: 1.5rem; font-weight: bold; gap: 1px; }
+  .nav-logo { display: flex; align-items: center; font-size: 1.5rem; font-weight: bold; gap: 5px; }
   .nav-logo-img { width: 65px; height: 65px; object-fit: contain; }
-  .nav-logo span { font-size: 1.5rem; color: black; }
+
   .nav-links { display: flex; gap: 40px; }
   .nav-links a { text-decoration: none; color: black; font-weight: 600; position: relative; }
 
   .nav-links a.active::after {
-    content: ""; position: absolute;
-    width: 100%; height: 4px;
-    background: blue;
-    bottom: -6px; left: 0;
-    border-radius: 10px;
+    content: ""; position: absolute; width: 100%; height: 4px;
+    background: blue; bottom: -6px; left: 0; border-radius: 10px;
   }
 
-  .nav-open-toggle, .nav-close-toggle {
-    display: none; flex-direction: column; gap: 5px; cursor: pointer;
-  }
+  .nav-open-toggle, .nav-close-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
 
-  .nav-dot {
-    width: 28px; height: 3px; background: black; border-radius: 2px; transition: .3s;
-  }
-
+  .nav-dot { width: 28px; height: 3px; background: black; border-radius: 2px; transition: .3s; }
+  
   .nav-close-toggle .nav-dot:nth-child(1) { transform: rotate(45deg) translate(7px,7px); }
   .nav-close-toggle .nav-dot:nth-child(2) { opacity: 0; }
   .nav-close-toggle .nav-dot:nth-child(3) { transform: rotate(-45deg) translate(7px,-7px); }
 
   @media (max-width: 768px) {
     .nav-links {
-      position: fixed; top: 60px; right: 30px;
-      background: white; padding: 20px 30px; border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      flex-direction: column; align-items: flex-start; gap: 20px;
-      transform: translateX(200%); transition: .4s;
+      position: fixed; top: 60px; right: 30px; background: white; padding: 20px 30px; 
+      border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); flex-direction: column; 
+      align-items: flex-start; gap: 20px; transform: translateX(200%); transition: 0.4s;
     }
     .nav-links.show { transform: translateX(0); }
-    .nav-open-toggle, .nav-close-toggle { display: flex; }
+    .nav-open-toggle, .nav-close-toggle { position: fixed; top: 30px; right: 20px; display: flex; z-index: 99999; }
   }
 </style>
 
@@ -58,7 +47,6 @@
     <a href="../index.html#about">About Us</a>
     <a href="../index.html#residences">Residences</a>
     <a href="../index.html#value">Value</a>
-    <!-- <a href="../index.html#contact">ContactUs</a> -->
     <a href="../lib/contact.html">Contact</a>
   </nav>
 
@@ -72,67 +60,56 @@
 </header>
 
 <script>
-  const nav = document.getElementById("nav-links");
-  const openBtn = document.getElementById("nav-open-btn");
-  const closeBtn = document.getElementById("nav-close-btn");
+const nav = document.getElementById("nav-links");
+const openBtn = document.getElementById("nav-open-btn");
+const closeBtn = document.getElementById("nav-close-btn");
 
-  const showMenu = () => {
-    nav.classList.add("show");
-    openBtn.style.display = "none";
-    closeBtn.style.display = "flex";
-  };
+function showMenu(){ nav.classList.add("show"); openBtn.style.display="none"; closeBtn.style.display="flex"; }
+function hideMenu(){ nav.classList.remove("show"); closeBtn.style.display="none"; openBtn.style.display="flex"; }
 
-  const hideMenu = () => {
+openBtn.onclick = showMenu; closeBtn.onclick = hideMenu;
+
+function adjustMenu(){
+  if(window.innerWidth <= 768){
+    openBtn.style.display="flex";
+    closeBtn.style.display="none";
+  } else {
     nav.classList.remove("show");
-    closeBtn.style.display = "none";
-    openBtn.style.display = "flex";
-  };
-
-  openBtn.onclick = showMenu;
-  closeBtn.onclick = hideMenu;
-
-  function adjustMenu() {
-    const mobile = window.innerWidth <= 768;
-    openBtn.style.display = mobile ? "flex" : "none";
-    closeBtn.style.display = "none";
-    if (!mobile) nav.classList.remove("show");
+    openBtn.style.display="none";
+    closeBtn.style.display="none";
   }
+}
+window.addEventListener("resize", adjustMenu);
+adjustMenu();
 
-  window.addEventListener("resize", adjustMenu);
-  adjustMenu();
+function highlightActiveLink(){
+  const path = location.pathname.replace(/\/$/,""), hash = location.hash;
+  document.querySelectorAll(".nav-links a").forEach(a=>{
+    const url = new URL(a.href);
+    const match =
+      (url.pathname.replace(/\/$/,"")===path && !url.hash) ||
+      (url.pathname.replace(/\/$/,"")===path && url.hash===hash) ||
+      (path.endsWith("index.html") && hash && url.hash===hash);
+    a.classList.toggle("active",match);
+  });
+}
 
-  // ---- ACTIVE LINK ON PAGE LOAD ----
-  function highlightActiveLink() {
-    const path = location.pathname.replace(/\/$/, "");
-    const hash = location.hash;
+function highlightOnScroll(){
+  const y = scrollY;
+  document.querySelectorAll("section[id]").forEach(sec=>{
+    const top = sec.offsetTop-120, bottom = top+sec.offsetHeight;
+    if(y>=top && y<bottom){
+      document.querySelectorAll(".nav-links a").forEach(a=>{
+        a.classList.toggle("active",a.href.includes(`#${sec.id}`));
+      });
+    }
+  });
+}
 
-    document.querySelectorAll(".nav-links a").forEach(a => {
-      const url = new URL(a.href);
-      const match =
-        (url.pathname.replace(/\/$/, "") === path && !url.hash) ||
-        (url.pathname.replace(/\/$/, "") === path && url.hash === hash) ||
-        (path.endsWith("index.html") && hash && url.hash === hash);
+document.querySelectorAll(".nav-links a").forEach(a=>{ a.addEventListener("click",()=>window.innerWidth<=768 && hideMenu()); });
+document.addEventListener("click", e=>{ if(window.innerWidth<=768 && !nav.contains(e.target) && !openBtn.contains(e.target) && !closeBtn.contains(e.target)){ hideMenu(); }});
+window.addEventListener("scroll",()=>{ highlightOnScroll(); if(window.innerWidth<=768 && nav.classList.contains("show")) hideMenu();});
 
-      a.classList.toggle("active", match);
-    });
-  }
-
-  // ---- ACTIVE LINK ON SCROLL ----
-  function highlightOnScroll() {
-    const y = window.scrollY;
-    document.querySelectorAll("section[id]").forEach(sec => {
-      const top = sec.offsetTop - 120;
-      const bottom = top + sec.offsetHeight;
-
-      if (y >= top && y < bottom) {
-        document.querySelectorAll(".nav-links a").forEach(a => {
-          a.classList.toggle("active", a.getAttribute("href").includes(`#${sec.id}`));
-        });
-      }
-    });
-  }
-
-  highlightActiveLink();
-  highlightOnScroll();
-  window.addEventListener("scroll", highlightOnScroll);
+highlightActiveLink();
+highlightOnScroll();
 </script>
