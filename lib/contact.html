@@ -86,6 +86,25 @@ transition: 0.25s;
 .recaptcha-logo { display:flex; flex-direction:column; align-items:center; font-size:11px; color:#666; }
 .recaptcha-logo img { width:22px; height:22px; }
 
+.consent-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 14px;
+  color: #333;
+  margin: 10px 0;
+}
+
+.consent-row input {
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.consent-row label {
+  line-height: 1.4;
+  cursor: pointer;
+}
+
     </style>
 </head>
 <body>
@@ -129,10 +148,15 @@ transition: 0.25s;
                         </div>
                     </div>
 
-                    <p class="robot-info-text">You agree to recieve communication messages via RCS, SMS, Whatsapp & Email.</p>
-                    <p class="robot-info-text">For security reasons, please confirm you're not a robot.</p>
-
+                    <div class="consent-row">
+                    <input type="checkbox" id="consent" required>
+                    <label for="consent">
+                      You agree to receive communication messages via RCS, SMS, WhatsApp & Email.
+                    </label>
+                  </div>
+                    
                     <div class="col-12 mt-3">
+                      <p class="robot-info-text">For security reasons, please confirm you're not a robot.</p>
                       <div class="recaptcha-box">
                         <label class="recaptcha-container">
                           <input type="checkbox" id="robotCheck">
