@@ -389,7 +389,7 @@ html {
 }
 
 .residences {
-  padding: 120px 0;
+  padding: 50px 0;
   background: var(--bg-light);
 }
 
@@ -440,6 +440,62 @@ html {
   justify-content: center;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+/*BUTTONS*/
+/* .button {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 8.5px;
+  font-weight: var(--font-semi);
+  height: 50px;
+  width:70%;
+  text-align: center;
+  border-radius: 50px;
+  transition: 0.3s;
+}
+.button:hover {
+  box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.15);
+} */
+
+.button {
+  position: relative;
+  transition: 0.3s;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  padding: 0.5rem 1.25rem;
+  margin-right: 45%;
+  background: black;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  gap: 10px;
+  font-weight: bold;
+  border: 2px solid #ffffff4d;
+  font-size: 15px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.button:hover { transform: scale(1.05); border-color: #fff9; }
+.button:hover::before { animation: shine 1.5s ease-out infinite; }
+
+.button::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.8), transparent 70%);
+  left: -100px;
+  opacity: 0.6;
+}
+
+@keyframes shine{0%{left:-100px} 60%,100%{left:100%}}
+
+.home__data {
+  align-self: center;
 }
 
 .filter-btn {
@@ -569,10 +625,14 @@ html {
   font-weight: 800;
   color: var(--primary-color);
   margin-bottom: 8px;
+  line-height: 1.1;
 }
 
 .residence-name {
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--text-dark);
   margin-bottom: 12px;
